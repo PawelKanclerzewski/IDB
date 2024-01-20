@@ -1,12 +1,13 @@
 import requests
+import Data
 from geopy.geocoders import Nominatim
 from datetime import date
 
 # DANE
 start_date = ""  # DATA ROZPOCZECIA
 end_date = ""  # DATA ZAKONCZENIA
-first_api_key = "53715b2ad2f04ac0b4baa5ecc3d1a9f0"  # KLUCZ API
-second_api_key = "32452871df524faba3624581f4e19bca"  # ZASTEPCZY KLUCZ API
+first_api_key = "9b7bb06e07fa4b659f52a6556d1a0fc4"  # KLUCZ API
+second_api_key = "9b7bb06e07fa4b659f52a6556d1a0fc4"  # ZASTEPCZY KLUCZ API
 
 
 def SetStartDate():
@@ -50,7 +51,7 @@ def getHistoricalWeather(api_key):
     print(start_date, end_date)
     print(lat, long)
     url = f'https://api.weatherbit.io/v2.0/history/hourly?lat={lat}&lon={long}&start_date={start_date}&end_date={end_date}&tz=local&key={api_key}'
-
+    print('Sending weatherAPI request...')
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -80,7 +81,7 @@ def getHistoricalAirQuality(api_key):
     #print(first_api_key, second_api_key)
     global lat, long, start_date, end_date
     url = f'https://api.weatherbit.io/v2.0/history/airquality?lat={lat}&lon={long}&start_date={start_date}&end_date={end_date}&tz=local&key={first_api_key}'
-
+    print('Sending airqualityAPI request...')
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -88,7 +89,7 @@ def getHistoricalAirQuality(api_key):
         return dane
     else:
         url = f'https://api.weatherbit.io/v2.0/history/airquality?lat={lat}&lon={long}&start_date={start_date}&end_date={end_date}&tz=local&key={second_api_key}'
-
+        
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -131,9 +132,8 @@ def trim_arrays(czas, temperature, wilgotnosc, predkosc_wiatru, aqi,
 
 
 def startReques():
-    get_location()
-    SetStartDate()
-    SetEndDate()
+    
+
     weather_data = getHistoricalWeather(second_api_key)
 
     if weather_data:
@@ -146,6 +146,8 @@ def startReques():
             data = trim_arrays(czas, temperature, wilgotnosc, predkosc_wiatru, aqi,
                                o3, so2, no2, pm10, pm25, co)
 
+            Data.WriteToCSV(data[0], data[1], data[2], data[3], data[4], data[5], \
+                data[6], data[7], data[8], data[9], data[10],)
             return data[0], data[1], data[2], data[3], data[4], data[5], \
                 data[6], data[7], data[8], data[9], data[10],
         else:
@@ -154,3 +156,25 @@ def startReques():
     else:
         print("BŁĄD: Brak danych dotyczących pogody.")
         return None
+    
+def startGetData():
+    global start_date
+    global end_date
+    get_location()
+    SetStartDate()
+    SetEndDate()
+    
+    if Data.CheckIfFileExists():
+        if Data.CheckIfNeedsUpdatingTail(start_date):
+            end_date = Data.GetOldestHistoricalDate()
+            return startReques()
+
+        SetEndDate()
+        if Data.CheckIfNeedsUpdatingFront(end_date):
+            start_date = Data.GetNewestHistoricalDate()
+            return startReques()
+        
+        return Data.GetDataSplitToday(start_date)
+    else:
+        return startReques()
+
