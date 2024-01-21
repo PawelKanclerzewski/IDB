@@ -167,7 +167,7 @@ def startGetData():
     if Data.CheckIfFileExists():
         if Data.CheckIfNeedsUpdatingTail(start_date):
             end_date = Data.GetOldestHistoricalDate()
-            return startReques()
+            data = startReques()
 
         SetEndDate()
         if Data.CheckIfNeedsUpdatingFront(end_date):
