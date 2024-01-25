@@ -1,0 +1,116 @@
+html, body {
+    font-family: "Exo 2", sans-serif;
+}
+
+.mainContainer {
+    position: relative;
+    width: 100%;
+    font-family: "Exo 2", sans-serif;
+}
+
+.topHeader {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    width: 100%;
+    background: #44cc59;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 2.5rem;
+    align-items: center;
+    gap: 2rem;
+}
+
+.topContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.bottomContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    background: #dedede;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    background: #dedede;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    height: fit-content;
+}
+
+.tileTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tileRow {
+    display: flex;
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+    column-gap: 0.4rem;
+}
+
+.tileRowValue {
+    font-weight: 600;
+}
+
+.greenColor {
+    color: green;
+}
+
+.redColor {
+    color: red;
+}
+
+.graphs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+}
+
+.button {
+    background: #757575;
+    color: white;
+    font-weight: 600;
+    padding: 0.3rem;
+    border-radius: 0.4rem;
+}
+
+.button:hover {
+    background: #939191;
+}
+
+.buttonActive {
+    background: #3a8fe8;
+    color: white;
+    font-weight: 600;
+    padding: 0.3rem;
+    border-radius: 0.4rem;
+}
+
+.buttonActive:hover {
+    background: #499af3;
+}
+
