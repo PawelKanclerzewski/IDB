@@ -4,8 +4,8 @@ from geopy.geocoders import Nominatim
 from datetime import date
 
 # DANE
-start_date = ""  # DATA ROZPOCZECIA
-end_date = ""  # DATA ZAKONCZENIA
+start_date = "2024-01-24"  # DATA ROZPOCZECIA
+end_date = "2024-01-25"  # DATA ZAKONCZENIA
 first_api_key = "9b7bb06e07fa4b659f52a6556d1a0fc4"  # KLUCZ API
 second_api_key = "9b7bb06e07fa4b659f52a6556d1a0fc4"  # ZASTEPCZY KLUCZ API
 
@@ -132,6 +132,7 @@ def trim_arrays(czas, temperature, wilgotnosc, predkosc_wiatru, aqi,
 
 
 def startReques():
+    get_location()
     
 
     weather_data = getHistoricalWeather(second_api_key)

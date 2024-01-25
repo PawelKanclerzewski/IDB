@@ -1,0 +1,8 @@
+# Start a watcher
+./tailwindcss -i input.css -o ../static/tw.css --watch
+
+# Compile and minify your CSS for production
+./tailwindcss -i input.css -o ../static/tw.css --minify
+
+# Start WebApp
+uvicorn WebApp:app --reload
